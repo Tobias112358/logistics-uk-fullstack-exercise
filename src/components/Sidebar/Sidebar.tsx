@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import menu from '../../data/menu.json'
 import { MenuItem } from './Sidebar.types'
 
