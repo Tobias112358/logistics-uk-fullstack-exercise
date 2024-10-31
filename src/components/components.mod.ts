@@ -2,3 +2,4 @@
 export { Header } from './Header/Header.tsx'
 export { Sidebar } from './Sidebar/Sidebar.tsx'
 export { Body } from './Body/Body.tsx'
+export { Holding } from './Holding/Holding.tsx'

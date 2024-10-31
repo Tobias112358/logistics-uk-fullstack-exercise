@@ -3,11 +3,6 @@ export interface DriverComponentProps {
     index: number
 }
 
-export interface ActivityDuration {
-    type: string,
-    duration: number
-}
-
 export interface DriverItem {
     driverID: number,
     surname: string,

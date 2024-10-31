@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { DriverComponentProps, ActivityDuration, DriverItem, Trace, Activity } from './Body.types'
+import { DriverComponentProps, DriverItem, Trace, Activity } from './Body.types'
 import drivers from '../../data/drivers.json'
 
 const DriverComponent = (props: DriverComponentProps) => {
