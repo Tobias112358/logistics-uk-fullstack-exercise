@@ -67,9 +67,6 @@
 /*Body Style*/
 
 .body {
-  display:flex;
-  justify-content: center;
-  align-items: center;
   border: 2px solid rgb(72, 79, 83);
   border-radius: 20px;
   background-color: grey;
@@ -78,6 +75,20 @@
   padding: 3rem;
 
   font-size: 1.2rem;
+}
+
+.drivers-table {
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.body input {
+  width: 50%;
+  height: 2rem;
+  margin: 2rem auto;
+  border-radius: 20px;
 }
 
 .body table {

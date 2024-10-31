@@ -72,23 +72,40 @@ const DriverComponent = (props: DriverComponentProps) => {
 }
 
 export const Body = () => {
+    const [searchString, setSearchString] = useState<string>('');
+    const [filteredItems, setFilteredItems] = useState<DriverItem[]>(drivers.data);
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const currentSearchString = event.target.value.toLowerCase();
+        setSearchString(currentSearchString);
+
+        const filtered = currentSearchString == '' ? drivers.data : drivers.data.filter((driver: DriverItem) => {
+            return driver.forename.toLowerCase().includes(currentSearchString) || driver.surname.toLowerCase().includes(currentSearchString) || driver.vehicleRegistration.toLowerCase().includes(currentSearchString);
+        });
+
+        setFilteredItems(filtered);
+    };
 
     return (
         <div className="body">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Driver</th>
-                        <th>Vehicle Registration</th>
-                        <th>Duration</th>
-                        <th>Activity Days</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {drivers.data.map((driver: DriverItem, index: number) =><DriverComponent key={index} index={index} driverItem={driver} />
-                    )}
-                </tbody>
-            </table>
+            <input type="text" value={searchString} onChange={handleSearch} placeholder="Search by driver name or rego" />
+            <br />
+            <div className="drivers-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Driver</th>
+                            <th>Vehicle Registration</th>
+                            <th>Duration</th>
+                            <th>Activity Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredItems.map((driver: DriverItem, index: number) =><DriverComponent key={index} index={index} driverItem={driver} />
+                        )}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
