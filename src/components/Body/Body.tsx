@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { DriverComponentProps, DriverItem, Trace, Activity } from './Body.types'
+import { DriverComponentProps, ActivityDuration, DriverItem, Trace, Activity } from './Body.types'
 import drivers from '../../data/drivers.json'
 
 const DriverComponent = (props: DriverComponentProps) => {
     const [totalDuration, setTotalDuration] = useState<number>(0)
+    const [individualActivityDuration, setIndividualActivityDuration] = useState<Map<string, number>>(new Map())
     const [daysActive, setDaysActive] = useState<boolean[]>([false, false, false, false, false, false, false])
     const today = new Date("2021-02-07")
     const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -11,12 +12,22 @@ const DriverComponent = (props: DriverComponentProps) => {
     useEffect(() => {
         let duration:number = 0
         let datesActive:string[] = []
+        let activityDurationMap = new Map()
         props.driverItem.traces.forEach((trace: Trace) => {
             datesActive.push(trace.date)
             trace.activity.forEach((activity: Activity) => {
                 duration = duration + activity.duration
+                if(activityDurationMap.has(activity.type)) {
+                    let currentActivityDuration = activityDurationMap.get(activity.type);
+                    currentActivityDuration = (currentActivityDuration || 0) + activity.duration
+                    activityDurationMap.set(activity.type, currentActivityDuration)
+                } else {
+                    activityDurationMap.set(activity.type, activity.duration)
+                }
             });
         });
+
+        setIndividualActivityDuration(activityDurationMap)
         setTotalDuration(duration)
 
         //setDaysActive()
@@ -39,7 +50,10 @@ const DriverComponent = (props: DriverComponentProps) => {
                 {props.driverItem.vehicleRegistration}
             </td>
             <td className="driverDuration">
-                {totalDuration} minutes
+                {Array.from(individualActivityDuration.entries()).map(([key, value]: [string, number]) => 
+                    <div key={key}>{key}: {value} minutes <br /></div>
+                )}
+                <b>{totalDuration} minutes total</b>
             </td>
             <td className="activityDays">
                 <table>
@@ -59,10 +73,6 @@ const DriverComponent = (props: DriverComponentProps) => {
                             {daysActive.map((active: boolean, index: number) => (
                                 <td key={index} className={"dayBox " + (active ? "active" : "inactive")}></td>
                             ))}
-                            
-                        {/*props.driverItem.traces.map((trace: Trace, index: number) => (
-                            <td key={index}>{trace.date}</td>
-                        ))*/}
                         </tr>
                     </tbody>
                 </table>

@@ -114,9 +114,18 @@
   column-span: 7;
 }
 
+.driver td {
+  padding: 15px;
+}
+
 .driverName {
   width:auto;
 }
+
+.driverDuration {
+  width: 200px;
+}
+
 
 .activityDays th {
   min-width: 100px;
