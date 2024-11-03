@@ -1,16 +1,15 @@
 import { Header, Sidebar, Body, Holding } from './components/components.mod'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css'
-import { useState } from 'react';
 
 const App = () => {
-  const [urlBasePath, _] = useState<string>('/logistics-uk-fullstack-exercise');
+  const urlBasePath = import.meta.env.BASE_URL;
 
   return(
     <Router basename={urlBasePath}>
       <Header />
       <div className="container">
-        <Sidebar urlBasePath={urlBasePath} />
+        <Sidebar />
         <Routes>
           <Route path="/" element={<Body />} />
           <Route path="/drivers" element={<Holding title={"Drivers"} />} />

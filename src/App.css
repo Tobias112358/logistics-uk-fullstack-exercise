@@ -55,13 +55,24 @@
 
 /*Sidebar Style*/
 
+.sidebar {
+  height: 80dvh;
+}
+
 .menu-item {
   padding: 0.5rem;
   font-size: 1.5rem;
+  margin-right: 5px;
 }
+
+.menu-item a {
+  color: #97c7f5;
+}
+
 .menu-item:hover {
   cursor:pointer;
   background-color: #373735;
+  border-radius: 10px;
 }
 
 /*Body Style*/
