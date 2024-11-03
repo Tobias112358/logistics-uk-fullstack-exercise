@@ -1,13 +1,12 @@
 import menu from '../../data/menu.json'
-import { MenuItem } from './Sidebar.types'
+import { MenuItem, SidebarProps } from './Sidebar.types'
 
 
-export const Sidebar = () => {
-
+export const Sidebar = (props: SidebarProps) => {
 
     const clickHandler = (url: string) => {
-        console.log('clicked')
-        window.location.href = url
+        
+        window.location.href = props.urlBasePath + url
     }
 
     return (
